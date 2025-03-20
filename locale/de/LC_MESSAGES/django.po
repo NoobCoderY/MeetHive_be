@@ -1,0 +1,264 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-26 00:24+0530\n"
+"PO-Revision-Date: 2024-07-26 00:25+0000\n"
+"Last-Translator: admin None <admin@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.10.0\n"
+
+#: .\api\core\models.py:61 .\api\core\models\base.py:20
+msgid "Created date time"
+msgstr "Erstellungsdatum Uhrzeit"
+
+#: .\api\core\models.py:63 .\api\core\models\base.py:22
+msgid "The date and time when the object was created"
+msgstr "Das Datum und die Uhrzeit, zu der das Objekt erstellt wurde"
+
+#: .\api\core\models.py:66 .\api\core\models\base.py:25
+msgid "Updated date time"
+msgstr "Aktualisiertes Datum Uhrzeit"
+
+#: .\api\core\models.py:68 .\api\core\models\base.py:27
+msgid "The date and time when the object was updated"
+msgstr "Das Datum und die Uhrzeit, zu der das Objekt aktualisiert wurde"
+
+#: .\api\core\models.py:71 .\api\core\models\base.py:30
+msgid "is record deleted"
+msgstr "wird der Datensatz gelöscht"
+
+#: .\api\core\models.py:73 .\api\core\models\base.py:32
+msgid "Represents if a record is soft deleted"
+msgstr "Stellt dar, ob ein Datensatz „soft deleted“ ist"
+
+#: .\api\v1\company\constants\choices.py:6
+msgid "Active"
+msgstr "Aktiv"
+
+#: .\api\v1\company\constants\choices.py:7
+msgid "Inactive"
+msgstr "Inaktiv"
+
+#: .\api\v1\company\constants\choices.py:11
+#, fuzzy
+#| msgid "Company Name"
+msgid "Company Admin"
+msgstr "Firmenname"
+
+#: .\api\v1\company\constants\choices.py:12
+msgid "Project Manager"
+msgstr ""
+
+#: .\api\v1\company\constants\choices.py:13
+msgid "Member"
+msgstr ""
+
+#: .\api\v1\company\constants\permissions.py:10
+msgid "Can view company details"
+msgstr ""
+
+#: .\api\v1\company\constants\permissions.py:11
+msgid "Can update company details"
+msgstr ""
+
+#: .\api\v1\company\constants\permissions.py:12
+msgid "Can update company logo"
+msgstr ""
+
+#: .\api\v1\company\constants\permissions.py:13
+msgid "Can Create new project"
+msgstr ""
+
+#: .\api\v1\company\constants\permissions.py:14
+msgid "Can view projects"
+msgstr ""
+
+#: .\api\v1\company\constants\permissions.py:15
+msgid "Can update project details"
+msgstr ""
+
+#: .\api\v1\company\constants\permissions.py:16
+msgid "Can delete project"
+msgstr ""
+
+#: .\api\v1\company\models\company.py:24
+msgid "Company Name"
+msgstr "Firmenname"
+
+#: .\api\v1\company\models\company.py:25
+msgid "Company Description"
+msgstr "Beschreibung des Unternehmens"
+
+#: .\api\v1\company\models\company.py:27
+msgid "Company Website"
+msgstr "Website des Unternehmens"
+
+#: .\api\v1\company\models\company.py:35
+msgid "Company"
+msgstr ""
+
+#: .\api\v1\company\models\company.py:36
+msgid "Companies"
+msgstr ""
+
+#: .\api\v1\company\models\company_role.py:27
+#, fuzzy
+#| msgid "Company Name"
+msgid "Company Role"
+msgstr "Firmenname"
+
+#: .\api\v1\company\models\company_role.py:28
+#, fuzzy
+#| msgid "Company Name"
+msgid "Company Roles"
+msgstr "Firmenname"
+
+#: .\api\v1\company\models\company_user.py:32
+msgid "Role of the user in company"
+msgstr ""
+
+#: .\api\v1\company\models\company_user.py:35
+msgid "Is the user admin of the company?"
+msgstr ""
+
+#: .\api\v1\company\models\company_user.py:37
+msgid "Is the user active in the company?"
+msgstr ""
+
+#: .\api\v1\user\models\managers\user.py:8
+msgid "Email is required"
+msgstr ""
+
+#: .\api\v1\user\models\onboarding.py:22
+msgid "What describes you the best?"
+msgstr ""
+
+#: .\api\v1\user\models\onboarding.py:25
+msgid "What interests you the most?"
+msgstr ""
+
+#: .\api\v1\user\serializers\auth.py:42
+msgid "User is not active"
+msgstr ""
+
+#: .\api\v1\user\serializers\auth.py:46
+msgid "User is not authenticated"
+msgstr ""
+
+#: .\api\v1\user\serializers\auth.py:50
+msgid "Invalid credentials"
+msgstr ""
+
+#: .\api\v1\user\serializers\auth.py:53
+msgid "Email or password missing"
+msgstr ""
+
+#: .\api\v1\user\serializers\auth.py:72
+msgid "First name is required."
+msgstr ""
+
+#: .\api\v1\user\serializers\auth.py:76
+msgid "Email is required."
+msgstr ""
+
+#: .\api\v1\user\serializers\auth.py:78 .\api\v1\user\serializers\auth.py:137
+msgid "Password is required."
+msgstr ""
+
+#: .\api\v1\user\serializers\auth.py:84
+msgid "User already exist"
+msgstr ""
+
+#: .\api\v1\user\serializers\auth.py:98 .\api\v1\user\serializers\auth.py:116
+msgid "Token is required."
+msgstr ""
+
+#: .\api\v1\user\serializers\auth.py:121 .\api\v1\user\services\auth.py:94
+msgid "User with the token does not exist"
+msgstr ""
+
+#: .\api\v1\user\serializers\onboarding.py:29
+msgid "Missing anwer to: `What interests you the most?`"
+msgstr ""
+
+#: .\api\v1\user\services\auth.py:58
+msgid "Confirm your account"
+msgstr ""
+
+#: .\api\v1\user\services\onboarding.py:40
+msgid "User does not exist"
+msgstr ""
+
+#: .\api\v1\user\views.py:20
+msgid "API to Login user"
+msgstr ""
+
+#: .\api\v1\user\views.py:21
+msgid "Login"
+msgstr ""
+
+#: .\api\v1\user\views.py:46 .\api\v1\user\views.py:269
+msgid "The request is not valid"
+msgstr ""
+
+#: .\api\v1\user\views.py:64
+msgid "API to Signup user"
+msgstr ""
+
+#: .\api\v1\user\views.py:65
+msgid "Signup"
+msgstr ""
+
+#: .\api\v1\user\views.py:104
+msgid "API to Verify user"
+msgstr ""
+
+#: .\api\v1\user\views.py:105
+msgid "Verify User"
+msgstr ""
+
+#: .\api\v1\user\views.py:143
+msgid "API to update user password"
+msgstr ""
+
+#: .\api\v1\user\views.py:144
+msgid "Update password"
+msgstr ""
+
+#: .\api\v1\user\views.py:194 .\api\v1\user\views.py:231
+msgid "Onboarding"
+msgstr "Einschulung"
+
+#: .\api\v1\user\views.py:195
+msgid "API to get user onboarding information"
+msgstr ""
+
+#: .\api\v1\user\views.py:196
+msgid "Get Onboarding"
+msgstr ""
+
+#: .\api\v1\user\views.py:232
+msgid "API to save user onboarding information"
+msgstr ""
+
+#: .\api\v1\user\views.py:233
+msgid "Save Onboarding"
+msgstr ""
+
+#~ msgid "Spanish"
+#~ msgstr "Español"
+
+#~ msgid "Hi"
+#~ msgstr "Tag"

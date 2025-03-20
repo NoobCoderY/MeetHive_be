@@ -1,0 +1,80 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-26 00:24+0530\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: .\justagile_be\models\base.py:20
+msgid "Created date time"
+msgstr ""
+
+#: .\justagile_be\models\base.py:22
+msgid "The date and time when the object was created"
+msgstr ""
+
+#: .\justagile_be\models\base.py:25
+msgid "Updated date time"
+msgstr ""
+
+#: .\justagile_be\models\base.py:27
+msgid "The date and time when the object was updated"
+msgstr ""
+
+#: .\justagile_be\models\base.py:30
+msgid "is record deleted"
+msgstr ""
+
+#: .\justagile_be\models\base.py:32
+msgid "Represents if a record is soft deleted"
+msgstr ""
+
+#: .\justagile_be\settings\config.py:172
+msgid "English"
+msgstr ""
+
+#: .\justagile_be\settings\config.py:173
+msgid "German"
+msgstr ""
+
+#: .\justagile_be\settings\config.py:174
+msgid "Spanish"
+msgstr ""
+
+#: .\justagile_be\templates\emails\account\signup_confirmation.html:5
+msgid "Confirm Your Signup"
+msgstr ""
+
+#: .\justagile_be\templates\emails\account\signup_confirmation.html:14
+msgid "Hi"
+msgstr ""
+
+#: .\justagile_be\templates\emails\account\signup_confirmation.html:15
+msgid "Verify your Email Account"
+msgstr ""
+
+#: .\justagile_be\templates\emails\account\signup_confirmation.html:17
+msgid ""
+"Thank you for signing up on Justagile. To complete your registration, please "
+"click the link below to confirm your email address:"
+msgstr ""
+
+#: .\justagile_be\templates\emails\account\signup_confirmation.html:18
+msgid "Confirm Email"
+msgstr ""
+
+#: .\justagile_be\templates\emails\account\signup_confirmation.html:20
+msgid "If you did not sign up for this account, please ignore this email."
+msgstr ""
