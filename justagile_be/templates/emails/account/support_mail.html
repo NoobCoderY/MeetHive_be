@@ -1,20 +1,14 @@
 {% extends "emails/base.html" %}
 {% load i18n %}
-{% load static %}
 
 {% block title %}
-{% trans "Justagile Support" %}
+{% trans "MeetHive Support" %}
 {% endblock %}
 
 
 {% block content %}
     <div class="parent-container" style=" max-width:100% ; width: 475px;  margin: auto; border: 1px solid #ccc; border-radius: 8px;">
-    <!-- Header Section -->
-    <div style="display:flex; height: 10vh; background: #22C55E; text-align: center; margin:auto; border-radius: 8px 8px 0 0">
-        <div style="width: 45%; height: 60%; margin:auto;">
-            <img src="https://justagile-be.vercel.app/static/images/full_logo.png" alt="full logo" style="width: 100%; height: 100%;">
-        </div>
-    </div>
+    {% include "emails/partials/email-header-brand.html" with header_bg="#22C55E" wordmark_color="#0f172a" %}
 
     <div class="text-center my-2" style="text-align: center; margin-top:4px; margin-bottom:4px; padding: 4px;">
         {{ body }}

@@ -1,61 +1,34 @@
 from django.template.loader import render_to_string
 from django.utils.encoding import force_str
-from mailjet_rest import Client
 from django.conf import settings
 from django.core.mail import EmailMessage
 
 
 class EmailService:
-    """
-    A service class for sending emails using Mailjet.
-    """
+    """Send templated HTML email via Django's configured EMAIL_BACKEND (e.g. SMTP)."""
 
     def __init__(self):
-        """
-        Initialize the EmailService with Mailjet API credentials.
-        """
-        self.mailjet = Client(auth=(settings.MAILJET_API_KEY, settings.MAILJET_API_SECRET), version='v3.1')
         self.from_email = settings.DEFAULT_FROM_EMAIL
 
-    def send_mail(self, template, subject, to, context, reply_to=[]):
+    def send_mail(self, template, subject, to, context, reply_to=None):
         """
-        Sends an email using a provided template, subject, recipient, and context.
+        Render `template` with `context` and send HTML email to `to`.
 
-        Args:
-            template (str): Path to the HTML template.
-            subject (str): Subject of the email.
-            to (str): Recipient email address.
-            context (dict): Context data for the email template.
-            reply_to (list): List of reply-to email addresses. Defaults to None.
-
-        Returns:
-            dict: The response from Mailjet.
+        reply_to: optional list of addresses for the Reply-To header.
         """
-        reply_to = reply_to or []
-
-       
-        message_template = render_to_string(template, context)
+        reply_to = list(reply_to or [])
+        html_body = render_to_string(template, context)
         subject = force_str(subject)
 
-            
-        data = {
-                "Messages": [
-                    {
-                        "From": {
-                            "Email": self.from_email,
-                        },
-                        "To": [{"Email": to}],
-                        "Subject": subject,
-                        "HTMLPart": message_template
-                    }
-                ]
-            }
+        kwargs = {
+            "subject": subject,
+            "body": html_body,
+            "from_email": self.from_email,
+            "to": [to],
+        }
+        if reply_to:
+            kwargs["reply_to"] = reply_to
 
-           
-        self.mailjet.send.create(data=data)
- 
-      
-        
-
-       
-
+        message = EmailMessage(**kwargs)
+        message.content_subtype = "html"
+        message.send()
