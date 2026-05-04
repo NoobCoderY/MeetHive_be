@@ -11,22 +11,20 @@ from api.v1.user.constants import AuditLogTaskChoices
 import boto3
 from botocore.config import Config
 from django.conf import settings
-from utils import extract_s3_info,refactor_transcription_data
+from utils import extract_s3_info, refactor_transcription_data
 import requests
 from django.db.models.functions import Coalesce
 
 
 my_config = Config(
-    region_name = settings.AWS_S3_REGION,
-    signature_version = 's3v4'  
+    region_name=settings.AWS_S3_REGION,
+    signature_version='s3v4'
 )
-
-
 
 
 class TranscriptionService:
     @staticmethod
-    def list_transcriptions(project: Project,search_query=None,date_from=None):
+    def list_transcriptions(project: Project, search_query=None, date_from=None):
         """
         Service function to list all the transcriptions by project ID
 
@@ -34,21 +32,21 @@ class TranscriptionService:
             - project_id : (str) - ID of the project
             - page : (int) - Page number for pagination
             - page_size : (int) - Number of items per page
-        """        
-        transcriptions=Transcription.objects.filter(project=project).annotate(
-                        updated_or_created=Coalesce('updated_at', 'created_at')
-                        ).order_by('-updated_or_created')
-        
+        """
+        transcriptions = Transcription.objects.filter(project=project).annotate(
+            updated_or_created=Coalesce('updated_at', 'created_at')
+        ).order_by('-updated_or_created')
+
         if date_from:
-            
+
             transcriptions = transcriptions.filter(created_at__gte=date_from)
-            
+
         if search_query:
-            transcriptions = transcriptions.filter(title__icontains=search_query)
+            transcriptions = transcriptions.filter(
+                title__icontains=search_query)
             return transcriptions
-        
+
         return transcriptions
-        
 
     @staticmethod
     def create_transcription(data, audio, project, project_user):
@@ -144,7 +142,6 @@ class TranscriptionService:
 
     @staticmethod
     def delete_transcription(id: str, project, user=''):
-        
         """
         Service function to delete transcription
 
@@ -186,23 +183,24 @@ class TranscriptionService:
             return True
 
     @staticmethod
-    def generate_signed_url(user_id,file_name, file_type):
+    def generate_signed_url(user_id, file_name, file_type):
         s3_client = boto3.client('s3', aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
-                                  aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,config=my_config)
+                                 aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY, config=my_config)
         unique_id = str(uuid.uuid4())
-        # file_key = f"{user_id}/{file_name.replace(' ', '_')}_{unique_id}.{file_type.split('/')[-1]}" 
+        # file_key = f"{user_id}/{file_name.replace(' ', '_')}_{unique_id}.{file_type.split('/')[-1]}"
         file_key = f"{user_id}/{unique_id}-{file_name}"
         try:
             signed_url = s3_client.generate_presigned_url('put_object',
-                Params={'Bucket': settings.AWS_STORAGE_BUCKET_NAME, 'Key': file_key,"ContentType": file_type},
-                ExpiresIn=3600) 
+                                                          Params={
+                                                              'Bucket': settings.AWS_STORAGE_BUCKET_NAME, 'Key': file_key, "ContentType": file_type},
+                                                          ExpiresIn=3600)
             return signed_url
         except Exception as e:
             raise BusinessException(
                 "SIGNED_URL_GENERATION_FAILED",
                 _("Failed to generate signed URL")
             )
-    
+
     @staticmethod
     def run_aws_transcribe(transcription, audio_url):
         """
@@ -210,7 +208,6 @@ class TranscriptionService:
         and update transcription status upon completion.
         """
 
-      
         transcribe_client = boto3.client(
             'transcribe',
             aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
@@ -220,37 +217,38 @@ class TranscriptionService:
 
         job_name = f"transcription_job_{transcription.id}_{int(time.time())}"
         s3_info = extract_s3_info(audio_url)
-        file_type=s3_info.get('file_type')
-        file_key=s3_info.get('file_key')
-        job_uri=f'https://s3-{settings.AWS_S3_REGION}.amazonaws.com/{settings.AWS_STORAGE_BUCKET_NAME}/{file_key}'
+        file_type = s3_info.get('file_type')
+        file_key = s3_info.get('file_key')
+        job_uri = f'https://s3-{settings.AWS_S3_REGION}.amazonaws.com/{settings.AWS_STORAGE_BUCKET_NAME}/{file_key}'
         try:
-          
+
             response = transcribe_client.start_transcription_job(
                 TranscriptionJobName=job_name,
                 Media={'MediaFileUri': job_uri},
-                MediaFormat=file_type,  
-                LanguageCode='en-US', 
+                MediaFormat=file_type,
+                LanguageCode='en-US',
                 Settings={
                     'ShowSpeakerLabels': True,
-                    'MaxSpeakerLabels': 10 
+                    'MaxSpeakerLabels': 10
                 }
-            )         
+            )
             while True:
                 status = transcribe_client.get_transcription_job(
                     TranscriptionJobName=job_name
                 )
                 if status['TranscriptionJob']['TranscriptionJobStatus'] in ['COMPLETED', 'FAILED']:
                     break
-                time.sleep(15)  
+                time.sleep(15)
 
             if status['TranscriptionJob']['TranscriptionJobStatus'] == 'COMPLETED':
-              
+
                 transcript_url = status['TranscriptionJob']['Transcript']['TranscriptFileUri']
                 transcript_response = requests.get(transcript_url)
                 transcript_json = transcript_response.json()
                 audio_segments = transcript_json['results']['audio_segments']
-                refactor_transcription=refactor_transcription_data(audio_segments)
-                
+                refactor_transcription = refactor_transcription_data(
+                    audio_segments)
+
                 TranscriptionService.complete_transcription(
                     transcription, refactor_transcription
                 )
@@ -268,9 +266,7 @@ class TranscriptionService:
             transcription.text = text
             transcription.status = 'completed'
             transcription.save()
-            
 
-        
     @staticmethod
     def create_upload_recording_transcription(data, audio, project, project_user):
         """
@@ -282,8 +278,7 @@ class TranscriptionService:
             - project_user : (ProjectUser)
                 - Project user object representing the creator
         """
-        
-      
+
         with transaction.atomic():
             # here provide the value of audio and also implement when we get that audio user gets transcription along with that audio
             transcription = Transcription.objects.create_transcription(

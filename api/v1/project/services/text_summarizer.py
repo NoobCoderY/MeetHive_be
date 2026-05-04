@@ -13,12 +13,11 @@ class SummarizationModel:
         api_url: The URL for the Mistral AI API.
         headers: The headers required for authorization.
     """
-    def __init__(self, model_name, api_key):
-        
-        self.client=Mistral(api_key=api_key)
-        self.model_name = model_name
-        
 
+    def __init__(self, model_name, api_key):
+
+        self.client = Mistral(api_key=api_key)
+        self.model_name = model_name
 
     def summarize(self, text):
         """Generates a summary for the provided text using the Mistral AI API.
@@ -29,9 +28,7 @@ class SummarizationModel:
         Returns:
              str: The generated summary.
         """
-        
-       
-         
+
         prompt = f"""
             You are an assistant tasked with summarizing meeting transcripts into concise summaries.
             Please summarize the following meeting transcription from a third-person perspective.
@@ -43,22 +40,17 @@ class SummarizationModel:
 
             Summary:
             """
-        
-        
 
         try:
             response = self.client.chat.complete(
                 model=self.model_name,
                 messages=[{"role": "user", "content": prompt}]
             )
-         
-     
-            return  response.choices[0].message.content.strip()
+
+            return response.choices[0].message.content.strip()
         except Exception as e:
             print(e)
-                
 
-                
     def summarize_chunks(self, text, chunk_size=20000, context_buffer=500):
         """Summarizes the provided text in chunks with overlapping to maintain context.
 
@@ -70,7 +62,7 @@ class SummarizationModel:
         Returns:
             str: The concatenated summaries of all chunks.
         """
-        
+
         chunks = []
         for start in range(0, len(text), chunk_size - context_buffer):
             end = min(start + chunk_size, len(text))
@@ -81,8 +73,9 @@ class SummarizationModel:
         for chunk in chunks:
             summary = self.summarize(chunk)
             summaries.append(summary)
-        
+
         return " ".join(summaries)
+
 
 class SummarizationModelWrapper:
     """A wrapper class for the SummarizationModel to provide thread-safe summarization.
@@ -91,8 +84,9 @@ class SummarizationModelWrapper:
         model: An instance of the SummarizationModel.
         lock: A threading lock to ensure thread safety during summarization.
     """
-    def __init__(self, model_name,api_key):
-        self.model = SummarizationModel(model_name,api_key)
+
+    def __init__(self, model_name, api_key):
+        self.model = SummarizationModel(model_name, api_key)
         self.lock = threading.Lock()
 
     def summarize_on_separate_thread(self, text):
@@ -119,5 +113,5 @@ class SummarizationModelWrapper:
             return result[0]
 
 
-summarization_model_wrapper = SummarizationModelWrapper(model_name="mistral-large-latest", api_key=settings.MISTRAL_API_KEY)
-
+summarization_model_wrapper = SummarizationModelWrapper(
+    model_name="mistral-large-latest", api_key=settings.MISTRAL_API_KEY)
