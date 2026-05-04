@@ -20,10 +20,7 @@ from datetime import timedelta
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env()
-if os.getenv('JA_ENV') == 'DEV':
-    environ.Env.read_env(os.path.join(BASE_DIR, 'settings', '.env.dev'))
-else:
-    environ.Env.read_env(os.path.join(BASE_DIR, 'settings', '.env.local'))
+environ.Env.read_env(os.path.join(BASE_DIR, 'settings', '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -73,12 +70,13 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost',
     'http://localhost:5173', 'http://127.0.0.1:5173',
     'http://3.76.215.210:8000', 'http://3.76.215.210:8080',
-    'https://justagile-ui.vercel.app'
+    'https://justagile-ui.vercel.app',
+    'https://meet-hive-fe.vercel.app'
 ]
 
 CORS_ALLOW_HEADERS = [
     "access-control-allow-origin", "accept", "accept-encoding", "authorization", "content-type", "dnt", "origin",
-    "user-agent", "x-requested-with", "tenant-id", "X-Tenant-ID", 'x-csrftoken', 'Referer','x-project-id'
+    "user-agent", "x-requested-with", "tenant-id", "X-Tenant-ID", 'x-csrftoken', 'Referer', 'x-project-id'
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -89,6 +87,7 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8080',
     'http://3.76.215.210:8080',
     'https://justagile-ui.vercel.app',
+    'https://meet-hive-fe.vercel.app'
     # '.vercel.app'
 ]
 
@@ -151,14 +150,7 @@ AUTHENTICATION_BACKENDS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': env('DB_ENGINE'),
-        'NAME': env('DB_NAME'),
-        'USER': env('DB_USER'),
-        'PASSWORD': env('DB_PASSWORD'),
-        'HOST': env('DB_HOST'),
-        'PORT': env('DB_PORT')
-    }
+    'default': env.db('DATABASE_URL')
 }
 
 
@@ -183,7 +175,7 @@ AUTH_PASSWORD_VALIDATORS = [
 REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'justagile_be.exceptions.global_exception_handler',
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 6, 
+    'PAGE_SIZE': 6,
 }
 
 
@@ -255,27 +247,24 @@ EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=True)
 EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")
 
-#API KEYS
-HUGGING_FACE_API_URL=env('HUGGING_FACE_API_URL')
-HUGGING_FACE_ACCESS_TOKEN=env('HUGGING_FACE_ACCESS_TOKEN')
-MISTRAL_API_KEY=env('MISTRAL_API_KEY')
+# API KEYS
+HUGGING_FACE_API_URL = env('HUGGING_FACE_API_URL')
+HUGGING_FACE_ACCESS_TOKEN = env('HUGGING_FACE_ACCESS_TOKEN')
+MISTRAL_API_KEY = env('MISTRAL_API_KEY')
 
-# Note: The monthly limit for transcription  and summary 
+# Note: The monthly limit for transcription  and summary
 TRANSCRIPTION_MONTHLY_LIMIT = env.int('TRANSCRIPTION_MONTHLY_LIMIT')
-SUMMARY_MONTHLY_LIMIT=env.int('SUMMARY_MONTHLY_LIMIT')
+SUMMARY_MONTHLY_LIMIT = env.int('SUMMARY_MONTHLY_LIMIT')
 
 # AWS
 AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_REGION=env('AWS_S3_REGION')
-AWS_S3_ENDPOINT_URL=env('AWS_S3_ENDPOINT_URL')
+AWS_S3_REGION = env('AWS_S3_REGION')
+AWS_S3_ENDPOINT_URL = env('AWS_S3_ENDPOINT_URL')
 
-#AWS PROFILE BUCKET
-AWS_DEFAULT_ACL = None  
+# AWS PROFILE BUCKET
+AWS_DEFAULT_ACL = None
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
-
-
-
