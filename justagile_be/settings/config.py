@@ -71,8 +71,8 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173', 'http://127.0.0.1:5173',
     'http://3.76.215.210:8000', 'http://3.76.215.210:8080',
     'https://justagile-ui.vercel.app',
-    'https://meet-hive-fe.vercel.app'
-    'meet-hive-be.vercel.app'
+    'https://meet-hive-fe.vercel.app',
+    'https://meet-hive-be.vercel.app',
 ]
 
 CORS_ALLOW_HEADERS = [
@@ -88,8 +88,8 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8080',
     'http://3.76.215.210:8080',
     'https://justagile-ui.vercel.app',
-    'https://meet-hive-fe.vercel.app'
-    # '.vercel.app'
+    'https://meet-hive-fe.vercel.app',
+    'https://meet-hive-be.vercel.app',
 ]
 
 ROOT_URLCONF = 'justagile_be.urls'
