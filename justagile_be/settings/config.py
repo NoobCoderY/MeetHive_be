@@ -72,6 +72,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://3.76.215.210:8000', 'http://3.76.215.210:8080',
     'https://justagile-ui.vercel.app',
     'https://meet-hive-fe.vercel.app'
+    'meet-hive-be.vercel.app'
 ]
 
 CORS_ALLOW_HEADERS = [
