@@ -24,6 +24,11 @@ from drf_yasg import openapi
 from django.conf.urls.i18n import i18n_patterns
 from django.conf import settings
 from django.conf.urls.static import static
+from django.http import JsonResponse
+
+
+def health_check(request):
+    return JsonResponse({"status": "ok", "message": "MeetHive API is running"})
 
 
 schema_view = get_schema_view(
@@ -40,6 +45,7 @@ schema_view = get_schema_view(
 
 
 urlpatterns = [
+    path('', health_check, name='health-check'),
     path('admin/', admin.site.urls),
     path('api/', include('api.core.urls')),
 
