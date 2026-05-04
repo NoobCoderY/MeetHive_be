@@ -33,14 +33,14 @@ class SummarizationModel:
        
          
         prompt = f"""
-            Sie sind ein Assistent, der die Aufgabe hat, Besprechungsprotokolle in prägnanten Zusammenfassungen zusammenzufassen. 
-            Bitte fassen Sie die folgende Besprechungstranskription aus der Perspektive einer dritten Person zusammen. 
-            Beziehen Sie alle besprochenen Kernpunkte mit ein und nennen Sie die in der Transkription des Meetings genannten Personen ordnungsgemäß. 
-            und gliedern Sie die Zusammenfassung in klare und zusammenhängende Absätze.
-            
+            You are an assistant tasked with summarizing meeting transcripts into concise summaries.
+            Please summarize the following meeting transcription from a third-person perspective.
+            Include all key points discussed and properly name the people mentioned in the meeting transcription,
+            and organize the summary into clear and coherent paragraphs.
+
             Transcription:
             {text}
-            
+
             Summary:
             """
         

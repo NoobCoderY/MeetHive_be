@@ -229,7 +229,7 @@ class TranscriptionService:
                 TranscriptionJobName=job_name,
                 Media={'MediaFileUri': job_uri},
                 MediaFormat=file_type,  
-                LanguageCode='de-DE', 
+                LanguageCode='en-US', 
                 Settings={
                     'ShowSpeakerLabels': True,
                     'MaxSpeakerLabels': 10 
